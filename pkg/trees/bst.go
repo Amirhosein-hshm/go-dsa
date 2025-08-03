@@ -36,9 +36,9 @@ func (t *Tree[T]) Insert(val T) {
 	}
 }
 
-func recursion[T int](yield func(T) bool, n *node[T]) bool {
+func InOrderTraversalRecursion[T int](yield func(T) bool, n *node[T]) bool {
 	if n.left_child != nil {
-		if !recursion(yield, n.left_child) {
+		if !InOrderTraversalRecursion(yield, n.left_child) {
 			return false
 		}
 	}
@@ -46,7 +46,7 @@ func recursion[T int](yield func(T) bool, n *node[T]) bool {
 		return false
 	}
 	if n.right_child != nil {
-		if !recursion(yield, n.right_child) {
+		if !InOrderTraversalRecursion(yield, n.right_child) {
 			return false
 		}
 	}
@@ -55,6 +55,6 @@ func recursion[T int](yield func(T) bool, n *node[T]) bool {
 
 func (t *Tree[T]) PreOrder() iter.Seq[T] {
 	return func(yield func(T) bool) {
-		recursion(yield, t.root)
+		InOrderTraversalRecursion(yield, t.root)
 	}
 }
